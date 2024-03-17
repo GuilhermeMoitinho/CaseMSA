@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "8bZmS1dwS99WxWksHc4tMAxUZgzD+IXG5i8vb6aYc4c=",
+  "Source": "CaseMSA.WebAPI",
+  "BasePath": "_content/CaseMSA.WebAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
