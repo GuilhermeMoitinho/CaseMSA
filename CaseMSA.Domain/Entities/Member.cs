@@ -8,24 +8,25 @@ namespace CaseMSA.Domain.Entities
     {
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
-        public string Gender { get; private set; }
+        public GenderEnum Gender { get; private set; }
         public string Email { get; private set; }
         public bool? IsActive { get; private set; }
 
         public Member(string firstName, 
-                      string lastName, 
-                      string gender, 
+                      string lastName,
+                      GenderEnum gender, 
                       string email, 
                       bool? isActive)
         {
+            Id = Guid.NewGuid();
             ValidateDomain(firstName, lastName, gender, email, isActive);
         }
 
         [JsonConstructor]
         public Member(Guid id, 
                       string firstname, 
-                      string lastname, 
-                      string gender, 
+                      string lastname,
+                      GenderEnum gender, 
                       string email, 
                       bool? active)
         {
@@ -35,8 +36,8 @@ namespace CaseMSA.Domain.Entities
         }
 
         public void Update(string firstName, 
-                           string lastName, 
-                           string gender, 
+                           string lastName,
+                           GenderEnum gender, 
                            string email, 
                            bool? isActive)
         {
@@ -44,8 +45,8 @@ namespace CaseMSA.Domain.Entities
         }
 
         private void ValidateDomain(string firstName, 
-                                    string lastName, 
-                                    string gender, 
+                                    string lastName,
+                                    GenderEnum gender, 
                                     string email, 
                                     bool? isActive)
         {
@@ -67,7 +68,7 @@ namespace CaseMSA.Domain.Entities
             DomainValidation.When(email?.Length < 6,
                 "Invalid email, too short, minimum 6 characters");
 
-            DomainValidation.When(string.IsNullOrEmpty(gender),
+            DomainValidation.When(gender.Equals(null),
                "Invalid gender, Gender is required");
 
             DomainValidation.When(!isActive.HasValue,

@@ -14,20 +14,6 @@ namespace CaseMSA.Infrastructure.EntityConfiguration
             builder.Property(m => m.Gender).HasMaxLength(10).IsRequired();
             builder.Property(m => m.Email).HasMaxLength(150).IsRequired();
             builder.Property(m => m.IsActive).IsRequired();
-
-            builder.HasData(
-                new Member(Guid.NewGuid(), "Guilherme", 
-                                           "Moitinho", 
-                                           "Masculino", 
-                                           "guilhermemoitinho3165@gmail.com", 
-                                           true),
-
-                new Member(Guid.NewGuid(), "Adriano", 
-                                           "Caldeira", 
-                                           "Masculino", 
-                                           "adrianocaldeiramsa@gmail.com", 
-                                           true)
-            );
         }
     }
 }

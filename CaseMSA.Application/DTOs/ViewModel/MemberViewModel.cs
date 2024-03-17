@@ -1,19 +1,21 @@
-﻿namespace CaseMSA.Application.DTOs.ViewModel
+﻿using CaseMSA.Domain.Entities;
+
+namespace CaseMSA.Application.DTOs.ViewModel
 {
     public class MemberViewModel
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Gender { get; set; }
+        public GenderEnum Gender { get; set; }
         public string Email { get; set; }
         public bool? IsActive { get; set; }
 
         public MemberViewModel(Guid id, 
                                string firstName, 
-                               string lastName, 
-                               string gender, 
-                               string email, 
+                               string lastName,
+                               string email,
+                               GenderEnum gender,
                                bool? isActive)
         {
             Id = id;
