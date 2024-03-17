@@ -14,12 +14,14 @@ namespace CaseMSA.Infrastructure.Repositories
             
         
 
-        public async Task AddMember(Member member)
+        public async Task<Member> AddMember(Member member)
         {
             if(member is null)
                     throw new ArgumentNullException(nameof(member));
 
-            await db.Members.AddAsync(member);
+            var memberCreate = await db.Members.AddAsync(member);
+
+            return memberCreate.Entity;
         }
 
         public async Task DeleteMember(Guid id)

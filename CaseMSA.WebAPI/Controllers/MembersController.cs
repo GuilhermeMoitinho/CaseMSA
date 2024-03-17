@@ -1,5 +1,7 @@
-﻿using CaseMSA.Application.Members.Commands;
+﻿using CaseMSA.Application.DTOs.Extensions;
+using CaseMSA.Application.Members.Commands;
 using CaseMSA.Application.Members.Queries;
+using CaseMSA.Application.ServiceResponse;
 using CaseMSA.Domain.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -27,7 +29,11 @@ namespace CaseMSA.WebAPI.Controllers
 
             var allMembers = await _mediator.Send(query);
 
-            return Ok(allMembers);
+            var listViewModel = allMembers.TranformInListViewModel();
+
+            var response = new Response(listViewModel);
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
@@ -40,7 +46,13 @@ namespace CaseMSA.WebAPI.Controllers
 
             if (command is null) return BadRequest();
 
-            return Ok(await _mediator.Send(command));
+            var member = await _mediator.Send(command);
+
+            var viewModel = member.TransformInViewModel();
+
+            var response = new Response(viewModel);
+
+            return Ok(response);
 
         }
 
@@ -77,9 +89,11 @@ namespace CaseMSA.WebAPI.Controllers
         {
             if (command is null) return BadRequest();
 
-            await _mediator.Send(command);
+            var member = await _mediator.Send(command);
 
-            return Ok();
+            var response = new Response(member.Id);
+
+            return CreatedAtAction(nameof(GetMemberById), new {Id = member.Id}, response);
         }
     }
 }

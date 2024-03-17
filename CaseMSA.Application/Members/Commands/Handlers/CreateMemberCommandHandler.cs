@@ -1,9 +1,10 @@
 ﻿using CaseMSA.Domain.Entities;
 using CaseMSA.Domain.Interfaces;
 using MediatR;
+
 namespace CaseMSA.Application.Members.Commands.Handlers
 {
-    internal class CreateMemberCommandHandler : IRequestHandler<CreateMemberCommand>
+    internal class CreateMemberCommandHandler : IRequestHandler<CreateMemberCommand, Member>
     {
         private readonly IMemberRepository _repository;
         private IUnityOfWork _UoW;
@@ -14,7 +15,7 @@ namespace CaseMSA.Application.Members.Commands.Handlers
             _UoW = uoW;
         }
 
-        public async Task Handle(CreateMemberCommand request, CancellationToken cancellationToken)
+        public async Task<Member> Handle(CreateMemberCommand request, CancellationToken cancellationToken)
         {
             var newMember = new Member(request.FirstName,
                                        request.LastName,
@@ -22,8 +23,10 @@ namespace CaseMSA.Application.Members.Commands.Handlers
                                        request.Email,
                                        request.IsActive);
 
-            await _repository.AddMember(newMember);
+            var member =  await _repository.AddMember(newMember);
             await _UoW.CommitAsync();
+
+            return member;
         }
     }
 }
