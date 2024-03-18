@@ -1,6 +1,9 @@
-﻿using CaseMSA.Domain.Interfaces;
+﻿using CaseMSA.Application.Validators;
+using CaseMSA.Domain.Interfaces;
 using CaseMSA.Infrastructure.Context;
 using CaseMSA.Infrastructure.Repositories;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,6 +24,13 @@ namespace CaseMSA.CrossCutting.AppDependencies
 
             var myhandlers = AppDomain.CurrentDomain.Load("CaseMSA.Application");
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(myhandlers));
+
+
+
+            services.AddFluentValidationAutoValidation()
+                        .AddFluentValidationClientsideAdapters();
+            
+            services.AddValidatorsFromAssemblyContaining<CreateMemberCommandValidator>();
 
 
         }

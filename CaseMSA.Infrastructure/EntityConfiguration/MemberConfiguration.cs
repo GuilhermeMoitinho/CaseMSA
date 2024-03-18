@@ -11,7 +11,7 @@ namespace CaseMSA.Infrastructure.EntityConfiguration
             builder.HasKey(x => x.Id);
             builder.Property(m => m.FirstName).HasMaxLength(100).IsRequired();
             builder.Property(m => m.LastName).HasMaxLength(100).IsRequired();
-            builder.Property(m => m.Gender).HasMaxLength(10).IsRequired();
+            builder.Property(m => m.Gender).IsRequired();
             builder.Property(m => m.Email).HasMaxLength(150).IsRequired();
             builder.Property(m => m.IsActive).IsRequired();
         }
